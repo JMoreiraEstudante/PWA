@@ -1,4 +1,5 @@
-const staticCacheName = 'site-static-v1';
+const staticCacheName = 'site-static-v8';
+const dynamicCacheName = 'site-dynamic-v4';
 //todos os assets que compoe a camada principal no app (shell assets)
 const assets = [
   '/',
@@ -10,7 +11,8 @@ const assets = [
   '/css/materialize.min.css',
   '/img/dish.png',
   'https://fonts.googleapis.com/icon?family=Material+Icons',
-  'https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2'
+  'https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2',
+  '/pages/fallback.html',
 ];
 
 // install event acontece sempre arquivo sw.js muda
@@ -33,7 +35,7 @@ self.addEventListener('activate', evt => {
     caches.keys().then(keys => {
       //console.log(keys);
       return Promise.all(keys
-        .filter(key => key !== staticCacheName)//filtra cache atual
+        .filter(key => key !== staticCacheName && key !== dynamicCacheName)//filtra caches atuais
         .map(key => caches.delete(key))//delete em todos os outros
       );
     })
@@ -46,7 +48,18 @@ self.addEventListener('fetch', evt => {
   //para fetch event e procura no cache
   evt.respondWith(
     caches.match(evt.request).then(cacheRes => {
-      return cacheRes || fetch(evt.request); //caso n ache no cache continua o fetch event
+      return cacheRes || fetch(evt.request) //caso nao ache nos caches, fetch event continua
+        .then(fetchRes => {
+            //constroi o cache dinamico
+            return caches.open(dynamicCacheName).then(cache => {
+            cache.put(evt.request.url, fetchRes.clone());
+            return fetchRes;
+        })
+      });
+    }).catch(() => { //caso o fetch event falhe, ai mostra a pagina de fallback
+      if(evt.request.url.indexOf('.html') > -1){//caso ocorra request por uma pag html
+        return caches.match('/pages/fallback.html');
+      } 
     })
   );  
 });
