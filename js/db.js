@@ -23,6 +23,7 @@ db.collection('recipes').onSnapshot(snapshot => {
     }
     if(change.type === 'removed'){
       // remove a receita
+      removeRecipe(change.doc.id);
     }
   });
 });
@@ -47,3 +48,14 @@ form.addEventListener('submit', evt => {
   form.ingredients.value = '';
   form.textarea1.value = '';
 });
+
+// remove uma receita
+const recipeContainer = document.querySelector('.recipes');
+recipeContainer.addEventListener('click', evt => {
+  //se clicou no icone de lixin
+  if(evt.target.tagName === 'I'){
+    const id = evt.target.getAttribute('data-id');
+    //console.log(id);
+    db.collection('recipes').doc(id).delete();
+  }
+})

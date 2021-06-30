@@ -20,11 +20,16 @@ const renderRecipe = (data, id) => {
         <div class="recipe-ingredients">${data.ingredients}</div>
         <div class="recipe-preparo">${data.preparo}</div>
       </div>
-      <div class="recipe-delete" data-id="${id}">
-        <i class="material-icons">delete_outline</i>
+      <div class="recipe-delete">
+        <i class="material-icons" data-id="${id}" >delete_outline</i>
       </div>
     </div>
   `;
   recipes.innerHTML += html;
+};
 
+// remove a receita do DOM
+const removeRecipe = (id) => {
+  const recipe = document.querySelector(`.recipe[data-id=${id}]`);
+  recipe.remove();
 };
