@@ -38,19 +38,7 @@
   </ul>
 
   <!-- recipes -->
-  <div class="recipes container grey-text text-darken-1">
-    <div class="card-panel recipe white row">
-      <img src="/img/dish.png" alt="recipe thumb">
-      <div class="recipe-details">
-        <div class="recipe-title">Lorem</div>
-        <div class="recipe-ingredients">ipsum dolor sit amet, consectetur adipiscing elit.</div>
-        <div class="recipe-preparo">Donec maximus, nisl ac semper egestas, erat nunc pretium nulla, at tempor lectus nulla in eros. Mauris cursus lacinia elementum. Integer sagittis et lectus placerat egestas. Vivamus maximus a ante in egestas. Praesent sed volutpat eros. Sed aliquam tristique odio id laoreet. In euismod mauris ac neque tristique, id eleifend purus elementum. Proin varius et tortor a aliquet.</div>
-      </div>
-      <div class="recipe-delete">
-        <i class="material-icons">delete_outline</i>
-      </div>
-    </div>
-  </div>
+  <div class="recipes container grey-text text-darken-1"></div>
 
   <div class="center">
     <a class="btn-floating btn-small add-btn sidenav-trigger" data-target="side-form">
@@ -73,7 +61,7 @@
       </div>
       <div class="input-field">
         <textarea placeholder="e.g. Prepare o macarrão ..." id="textarea1" class="materialize-textarea" class="validate"></textarea>
-        <label for="preparo">Modo preparo</label>
+        <label for="textarea1">Modo preparo</label>
       </div>
       <div class="input-field center">
         <button class="btn-small">Add</button>
@@ -81,7 +69,34 @@
     </form>
   </div>
 
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyBGjOo4kA8ryhT_yASJfUoeZGnf-A77JeI",
+      authDomain: "pwapp-27a0b.firebaseapp.com",
+      projectId: "pwapp-27a0b",
+      storageBucket: "pwapp-27a0b.appspot.com",
+      messagingSenderId: "52987581252",
+      appId: "1:52987581252:web:f43d1365a548a34ba77d11",
+      measurementId: "G-02KDT9PEV7"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    const db = firebase.firestore();
+  </script>
+
   <script src="/js/ui.js"></script>
   <script src="/js/app.js"></script>
+  <script src="/js/db.js"></script>
 </body>
 </html>

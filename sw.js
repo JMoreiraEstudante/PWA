@@ -1,5 +1,5 @@
-const staticCacheName = 'site-static-v12';
-const dynamicCacheName = 'site-dynamic-v7';
+const staticCacheName = 'site-static-v18';
+const dynamicCacheName = 'site-dynamic-v11';
 //todos os assets que compoe a camada principal no app (shell assets)
 const assets = [
   '/',
@@ -45,21 +45,24 @@ self.addEventListener('activate', evt => {
 // fetch event ao server sobre todos os recursos que o app usa
 self.addEventListener('fetch', evt => {
   //console.log('fetch event', evt);
-  //para fetch event e procura no cache
-  evt.respondWith(
-    caches.match(evt.request).then(cacheRes => {
-      return cacheRes || fetch(evt.request) //caso nao ache nos caches, fetch event continua
-        .then(fetchRes => {
-            //constroi o cache dinamico
-            return caches.open(dynamicCacheName).then(cache => {
-            cache.put(evt.request.url, fetchRes.clone());
-            return fetchRes;
-        })
-      });
-    }).catch(() => { //caso o fetch event falhe, ai mostra a pagina de fallback
-      if(evt.request.url.indexOf('.html') > -1){//caso ocorra request por uma pag html
-        return caches.match('/pages/fallback.html');
-      } 
-    })
-  );  
+  //ignora fetch event sobre data do db
+  if(evt.request.url.indexOf('firestore.googleapis.com') === -1){
+    //para fetch event e procura no cache
+    evt.respondWith(
+      caches.match(evt.request).then(cacheRes => {
+        return cacheRes || fetch(evt.request) //caso nao ache nos caches, fetch event continua
+          .then(fetchRes => {
+              //constroi o cache dinamico
+              return caches.open(dynamicCacheName).then(cache => {
+              cache.put(evt.request.url, fetchRes.clone());
+              return fetchRes;
+          })
+        });
+      }).catch(() => { //caso o fetch event falhe, ai mostra a pagina de fallback
+        if(evt.request.url.indexOf('.html') > -1){//caso ocorra request por uma pag html
+          return caches.match('/pages/fallback.html');
+        } 
+      })
+    );
+  }
 });
