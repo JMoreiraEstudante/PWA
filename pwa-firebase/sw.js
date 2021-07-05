@@ -1,5 +1,5 @@
-const staticCacheName = 'site-static-v18';
-const dynamicCacheName = 'site-dynamic-v12';
+const staticCacheName = 'site-static-v43';
+const dynamicCacheName = 'site-dynamic-v22';
 //todos os assets que compoe a camada principal no app (shell assets)
 const assets = [
   '/',
@@ -9,7 +9,7 @@ const assets = [
   '/js/materialize.min.js',
   '/css/styles.css',
   '/css/materialize.min.css',
-  '/img/dish.png',
+  '/img/capa.jpeg',
   'https://fonts.googleapis.com/icon?family=Material+Icons',
   'https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2',
   '/pages/fallback.html',

@@ -13,24 +13,36 @@ const recipes = document.querySelector('.recipes');
 const renderRecipe = (data, id) => {
 
   const html = `
-    <div class="card-panel recipe white row" data-id="${id}">
-      <img src="/img/dish.png" alt="recipe thumb">
-      <div class="recipe-details">
-        <div class="recipe-title">${data.title}</div>
-        <div class="recipe-ingredients">${data.ingredients}</div>
-        <div class="recipe-preparo">${data.preparo}</div>
-      </div>
-      <div class="recipe-delete">
-        <i class="material-icons" data-id="${id}" >delete_outline</i>
-      </div>
-    </div>
+  <div class="card-panel deletereceita white col s12 xl6 upload-area" data-id="${id}">
+        <div class="container">
+            <div class="row">
+              <div class="s12 center">
+               <div class="upload-img">
+                <img src="/img/capa.jpeg" alt="recipe thumb" id="${id}" data-id="${id}" class="ilustrate">
+               </div>
+              </div>
+            </div>
+        </div>
+        <div >
+          <h6>Receita</h6>
+          <p>${data.title}</p> 
+          <h6>Ingredientes</h6>
+          <p>${data.ingredients}</p>
+          <h6>Modo de preparo</h6>
+          <p>${data.preparo}</p>
+        </div>
+        <div>
+          <i id="deletar" class="material-icons" data-id="${id}" >delete_outline</i>
+        </div>
+       </div>
   `;
   recipes.innerHTML += html;
 };
 
 // remove a receita do DOM
 const removeRecipe = (id) => {
-  const recipe = document.querySelector(`.recipe[data-id=${id}]`);
+  const recipe = document.querySelector(`.deletereceita[data-id=${id}]`);
+  console.log(recipe)
   recipe.remove();
 };
 
@@ -48,3 +60,9 @@ if (isMobileDevice())
   teste.textContent = "Aberto em um Smartphone"
 else
   teste.textContent = "Aberto em um PC"
+
+//adiciona a imagem na receita
+const AddImagem = (id , url) => {
+  const imagem = document.getElementById(id);
+  imagem.src = url;
+};

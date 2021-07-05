@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="theme-color" content="#2E8BC0">
-  <title>PWA App</title>
+  <title>Restaurante PéDeFava</title>
   <!-- materialize icons, css & js -->
   <link type="text/css" href="/css/materialize.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -17,18 +17,18 @@
 <body class="grey lighten-4">
 
   <!-- top nav -->
-  <nav class="z-depth-0">
+  <nav class="z-depth-0" id="navbarcolor" >
     <div class="nav-wrapper container">
-      <a href="/">PW<span>App</span></a>
-      <span class="right grey-text text-darken-1">
+      <a href="/">PéDe<span>Fava</span></a>
+      <span class="right  text-darken-1">
         <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
       </span>
     </div>
   </nav>
 
   <!-- side nav -->
-  <ul id="side-menu" class="sidenav side-menu">
-    <li><a class="subheader">PWApp</a></li>
+  <ul id="side-menu" class="Cnavbarcolor sidenav side-menu">
+    <li><a class="subheader">PéDeFava</a></li>
     <li><a href="/" class="waves-effect">Home</a></li>
     <li><a href="/pages/about.html" class="waves-effect">Sobre</a></li>
     <li><div class="divider"></div></li>
@@ -38,8 +38,10 @@
   </ul>
 
   <!-- recipes -->
-  <div class="recipes container grey-text text-darken-1">
+  <div class="container grey-text text-darken-1">
     <p id="mobileOrPc"></p>
+    <div class="row recipes">
+    </div>
   </div>
 
   <div class="center">
@@ -55,7 +57,7 @@
       <div class="divider"></div>
       <div class="input-field">
         <input placeholder="e.g. Macarrão alho e óleo" id="title" type="text" class="validate">
-        <label for="title">Ttitulo</label>
+        <label for="title">Titulo</label>
       </div>
       <div class="input-field">
         <input placeholder="e.g. Macarrão, alho e óleo" id="ingredients" type="text" class="validate">
@@ -70,10 +72,13 @@
       </div>
     </form>
   </div>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-storage.js"></script>
 
   <!-- TODO: Add SDKs for Firebase products that you want to use
       https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -85,6 +90,7 @@
     var firebaseConfig = {
       apiKey: "AIzaSyBGjOo4kA8ryhT_yASJfUoeZGnf-A77JeI",
       authDomain: "pwapp-27a0b.firebaseapp.com",
+      databaseURL: "https://pwapp-27a0b-default-rtdb.firebaseio.com/",
       projectId: "pwapp-27a0b",
       storageBucket: "pwapp-27a0b.appspot.com",
       messagingSenderId: "52987581252",

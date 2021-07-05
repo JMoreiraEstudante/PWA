@@ -27,6 +27,7 @@ nav .sidenav-trigger{
 .recipes{
   margin-top: 20px;
 }
+
 .card-panel.recipe{
   border-radius: 8px;
   padding: 10px;
@@ -38,7 +39,7 @@ nav .sidenav-trigger{
 }
 .recipe img{
   grid-area: image;
-  max-width: 100px;
+  max-width: 300px;
 }
 .recipe-details{
   grid-area: details;
@@ -77,4 +78,38 @@ input{
 }
 form .input-field{
   margin-top: 30px;
+}
+.ilustrate{
+  background-color: rebeccapurple;
+  height: 150px;
+  width: 250px;
+  margin-top: 20px;
+  border-radius: 30px;
+}
+h6{
+  color: silver;
+}
+#deletar{
+  margin-left: 96%;
+  
+}
+.Cnavbarcolor{
+background-color:tomato;
+}
+#navbarcolor{
+  background-color: tomato;
+}
+.upload-area{
+  border: white;
+}
+.upload-img-border{
+  background-color: none;
+  border: 4px dashed tomato;
+}
+.imgupload{
+  color: azure;
+}
+.upload-img{
+  background-color: none;
+  border: 1px solid white;
 }
