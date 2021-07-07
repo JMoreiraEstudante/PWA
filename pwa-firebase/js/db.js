@@ -27,6 +27,7 @@ db.collection('recipes').onSnapshot(snapshot => {
     }
     if(change.type === 'removed'){
       // remove a receita
+      //@todo remover a foto do firebase tbm
       removeRecipe(change.doc.id);
     }
   });
@@ -45,24 +46,27 @@ form.addEventListener('submit', evt => {
   db.collection('recipes').add(recipe)
     .then(function(docRef) {
       id = docRef.id //pegando id da receita adicionada
+      //@todo crop na file
       const file = document.getElementById('foto').files[0];//pegando o arquivo da imagem do form
-      var ImgUrl;
-      var uploadImage = firebase.storage().ref('Imagens/' + id + ".png").put(file); //salva imagem no storage
-      uploadImage.on('state_changed' , function(snapshot){},
-        function(error){
-          console.log("Erro ao salvar imagem !!!")
-        },
-        function(){
-          uploadImage.snapshot.ref.getDownloadURL().then(function(url){//apos a imagem ser salva no storage , pegamos o link dela
-            ImgUrl = url;
-            firebase.database().ref('Imagens/'+id).set({//salva o link da imagem e o id da receita que ela pertence no RealtimeDatabase
-            IdImage: id,
-            Link: ImgUrl
+      if (file !== undefined){
+        var ImgUrl;
+        var uploadImage = firebase.storage().ref('Imagens/' + id + ".png").put(file); //salva imagem no storage
+        uploadImage.on('state_changed' , function(snapshot){},
+          function(error){
+            console.log("Erro ao salvar imagem !!!")
+          },
+          function(){
+            uploadImage.snapshot.ref.getDownloadURL().then(function(url){//apos a imagem ser salva no storage , pegamos o link dela
+              ImgUrl = url;
+              firebase.database().ref('Imagens/'+id).set({//salva o link da imagem e o id da receita que ela pertence no RealtimeDatabase
+              IdImage: id,
+              Link: ImgUrl
+              });
+              console.log("Imagem Salva !");
             });
-            console.log("Imagem Salva !");
-          });
-        }
-      );
+          }
+        );
+      }
     })
     .catch(err => console.log(err));
 
