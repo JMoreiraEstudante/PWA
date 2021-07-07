@@ -21,8 +21,8 @@ db.collection('recipes').onSnapshot(snapshot => {
     if(change.type === 'added'){
       // add a receita
       renderRecipe(change.doc.data(), change.doc.id);
-      firebase.database().ref('Imagens/'+change.doc.id).on('value' , function(snapshot){//busca a imagem no RealtimeDatabase
-        AddImagem(change.doc.id , snapshot.val().Link)//carrega a imagem da receita renderizada , passando o id da receita e o link da imagem 
+      firebase.database().ref('Imagens/'+change.doc.id).on('value' , function(snapshot){//busca a imagem 
+        if (snapshot.val() != null) AddImagem(change.doc.id , snapshot.val().Link)//carrega a imagem da receita renderizada , passando o id da receita e o link da imagem 
       });
     }
     if(change.type === 'removed'){

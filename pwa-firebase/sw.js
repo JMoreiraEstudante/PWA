@@ -1,11 +1,12 @@
-const staticCacheName = 'site-static-v43';
-const dynamicCacheName = 'site-dynamic-v22';
+const staticCacheName = 'site-static-v47';
+const dynamicCacheName = 'site-dynamic-v23';
 //todos os assets que compoe a camada principal no app (shell assets)
 const assets = [
   '/',
   '/index.html',
   '/js/app.js',
   '/js/ui.js',
+  '/js/db.js',
   '/js/materialize.min.js',
   '/css/styles.css',
   '/css/materialize.min.css',
