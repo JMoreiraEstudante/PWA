@@ -46,7 +46,7 @@ form.addEventListener('submit', evt => {
   db.collection('recipes').add(recipe)
     .then(function(docRef) {
       id = docRef.id //pegando id da receita adicionada
-      //@todo crop na file
+      //@todo crop na file da imagem
       const file = document.getElementById('foto').files[0];//pegando o arquivo da imagem do form
       if (file !== undefined){
         var ImgUrl;
