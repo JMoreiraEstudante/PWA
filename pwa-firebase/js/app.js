@@ -5,7 +5,6 @@ if('serviceWorker' in navigator){
     .catch(err => console.log('service worker not registered', err));
 }
 
-if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) 
-  console.log("Tem suporte pra câmera")
-else  
-  console.log("Não tem suporte pra câmera")
+//checa browser tem suporte file API para compressao das foto
+if ( window.File && window.FileReader && window.FileList && window.Blob ) console.log('The File APIs are fully supported in this browser.')
+else console.log('The File APIs are not fully supported in this browser.'); 
