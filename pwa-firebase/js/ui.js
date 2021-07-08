@@ -13,7 +13,7 @@ const recipes = document.querySelector('.recipes');
 const renderRecipe = (data, id) => {
 
   const html = `
-  <div class="card-panel deletereceita white col s12 xl6 upload-area" data-id="${id}">
+  <div class="card-panel deletereceita white col s12 xl6 upload-area" id="${id}">
         <div class="container">
             <div class="row">
               <div class="s12 center">
@@ -41,7 +41,7 @@ const renderRecipe = (data, id) => {
 
 // remove a receita do DOM
 const removeRecipe = (id) => {
-  const recipe = document.querySelector(`.deletereceita[data-id=${id}]`);
+  const recipe = document.getElementById(id);
   recipe.remove();
 };
 

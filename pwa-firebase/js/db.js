@@ -12,7 +12,6 @@ db.enablePersistence()
     }
   });
 
-
 // real-time listener, sempre tiver uma mudança no db ele manda um snapshot
 db.collection('recipes').onSnapshot(snapshot => {
   //console.log(snapshot.docChanges());
@@ -29,6 +28,7 @@ db.collection('recipes').onSnapshot(snapshot => {
       // remove a receita
       removeRecipe(change.doc.id);
       //remove foto da receita do storage
+      //console.log(firebase.storage().ref('Imagens/' + change.doc.id + ".png"))
       firebase.storage().ref('Imagens/' + change.doc.id + ".png").delete();
       firebase.database().ref('Imagens/'+change.doc.id).remove();
     }

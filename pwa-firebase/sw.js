@@ -1,4 +1,4 @@
-const staticCacheName = 'site-static-v113';
+const staticCacheName = 'site-static-v132';
 const dynamicCacheName = 'site-dynamic-v37';
 //todos os assets que compoe a camada principal no app (shell assets)
 const assets = [
