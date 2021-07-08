@@ -51,7 +51,7 @@ form.addEventListener('submit', evt => {
       //@todo crop na file da imagem
       const file = document.getElementById('foto').files[0];//pegando o arquivo da imagem do form
       if (file !== undefined){
-        console.log("Not compress image file",file)
+        //console.log("Not compress image file",file)
         //compressao
         const blobURL = URL.createObjectURL(file);
         const img = new Image();
@@ -73,7 +73,7 @@ form.addEventListener('submit', evt => {
           canvas.toBlob(
             (b) => {
               // Handle the compressed image. es. upload or save in local state
-              console.log("Compress image file", blobToFile(b, file.name, file.type))
+              //console.log("Compress image file", blobToFile(b, file.name, file.type))
               var ImgUrl;
               var uploadImage = firebase.storage().ref('Imagens/' + id + ".png").put(blobToFile(b, file.name, file.type)); //salva imagem no storage
               uploadImage.on('state_changed' , function(snapshot){},
@@ -158,25 +158,51 @@ recipeContainer.addEventListener('drop', evt => {
       reader.readAsDataURL(files[0]);
       const id = evt.target.getAttribute('data-id');//pega o id para poder definir a que receita a imagem pertence na hora de salvar no banco
 
-      var ImgUrl;
-      var uploadImage = firebase.storage().ref('Imagens/' + id + ".png").put(files[0]); //salva imagem no storage
-      uploadImage.on('state_changed' , function(snapshot){
-        
-      },
-        function(error){
-          console.log("Erro ao salvar imagem !!!")
-        },
-        function(){
-          uploadImage.snapshot.ref.getDownloadURL().then(function(url){//apos a imagem ser salva no storage , pegamos o link dela
-            ImgUrl = url;
-            firebase.database().ref('Imagens/'+id).set({//salva o link da imagem e o id da receita que ela pertence no RealtimeDatabase
-              IdImage: id,
-              Link: ImgUrl
-            });
-            console.log("Imagem Salva !");
-          });
-        }
-      );
+      //compressao
+      const blobURL = URL.createObjectURL(files[0]);
+      const img = new Image();
+      img.src = blobURL;
+      img.onerror = function () {
+        URL.revokeObjectURL(this.src);
+        // Handle the failure properly
+        console.log("Cannot load image");
+      };
+
+      img.onload = function () {
+        URL.revokeObjectURL(this.src);
+        const [newWidth, newHeight] = calculateSize(img, MAX_WIDTH, MAX_HEIGHT);
+        const canvas = document.createElement("canvas");
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, newWidth, newHeight);
+        canvas.toBlob(
+          (b) => {
+            // Handle the compressed image. es. upload or save in local state
+            var ImgUrl;
+            var uploadImage = firebase.storage().ref('Imagens/' + id + ".png").put(blobToFile(b, files[0].name, files[0].type)); //salva imagem no storage
+            uploadImage.on('state_changed' , function(snapshot){
+              
+            },
+              function(error){
+                console.log("Erro ao salvar imagem !!!")
+              },
+              function(){
+                uploadImage.snapshot.ref.getDownloadURL().then(function(url){//apos a imagem ser salva no storage , pegamos o link dela
+                  ImgUrl = url;
+                  firebase.database().ref('Imagens/'+id).set({//salva o link da imagem e o id da receita que ela pertence no RealtimeDatabase
+                    IdImage: id,
+                    Link: ImgUrl
+                  });
+                  console.log("Imagem Salva !");
+                });
+              }
+            );
+          },
+          MIME_TYPE,
+          QUALITY
+        )
+      };
     }
   }
 }, false)
