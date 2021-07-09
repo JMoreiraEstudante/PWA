@@ -160,7 +160,7 @@ recipeContainer.addEventListener('drop', evt => {
         evt.target.src = reader.result; //alterar a src da imagem selecionada para imagem carregada
       }
       reader.readAsDataURL(files[0]);
-      const id = evt.target.getAttribute('data-id');//pega o id para poder definir a que receita a imagem pertence na hora de salvar no banco
+      const id = evt.target.getAttribute('id');//pega o id para poder definir a que receita a imagem pertence na hora de salvar no banco
 
       //compressao
       const blobURL = URL.createObjectURL(files[0]);
