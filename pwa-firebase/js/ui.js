@@ -13,12 +13,12 @@ const recipes = document.querySelector('.recipes');
 const renderRecipe = (data, id) => {
 
   const html = `
-  <div class="card-panel deletereceita white col s12 xl6 upload-area" id="${id}">
+    <div class="card-panel deletereceita white col s12 xl6 upload-area" data-id="${id}">
         <div class="container">
             <div class="row">
               <div class="s12 center">
                <div class="upload-img">
-                <img src="/img/capa.jpeg" alt="recipe thumb" id="${id}" data-id="${id}" class="ilustrate">
+                <img src="/img/capa.jpeg" alt="recipe thumb" id="${id}" class="ilustrate">
                </div>
               </div>
             </div>
@@ -34,16 +34,16 @@ const renderRecipe = (data, id) => {
         <div>
           <i id="deletar" class="material-icons" data-id="${id}" >delete_outline</i>
         </div>
-       </div>
+    </div>
   `;
   recipes.innerHTML += html;
 };
 
 // remove a receita do DOM
 const removeRecipe = (id) => {
-  const recipe = document.querySelector(`.deletereceita[data-id=${id}]`);
-  //const recipe = document.getElementById(id);
-  recipe.remove();
+  receitas = document.querySelector(`.recipes`).getElementsByClassName("deletereceita");
+  for (i=0; i < receitas.length; i++)
+    if (receitas[i].dataset["id"] == id) receitas[i].remove();
 };
 
 //https://www.codegrepper.com/code-examples/javascript/javascript+detect+if+desktop+or+mobile
