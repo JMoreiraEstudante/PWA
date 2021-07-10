@@ -76,7 +76,7 @@ form.addEventListener('submit', evt => {
           ctx.drawImage(img, 0, 0, newWidth, newHeight);
           canvas.toBlob(
             (b) => {
-              // Handle the compressed image. es. upload or save in local state
+              // acesso a imagem que sofreu compressao
               //console.log("Compress image file", blobToFile(b, file.name, file.type))
               var ImgUrl;
               var uploadImage = firebase.storage().ref('Imagens/' + id + ".png").put(blobToFile(b, file.name, file.type)); //salva imagem no storage
